@@ -19,6 +19,10 @@ public class WorkbookController {
     
     @PostMapping("/submitItem")
     public String handleSubmit(@Valid User user, BindingResult result) {
+        if (user.getLastName().equals(user.getFirstName())) {
+            result.rejectValue("lastName", "", "Last name không được trùng với First name");            
+        }
+
         if (result.hasErrors()) return "sign-up";
         return "redirect:/result";
     }
